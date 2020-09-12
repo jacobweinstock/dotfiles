@@ -1,0 +1,25 @@
+export PATH=~/.nix-profile/bin/:$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+alias ll='ls -ltrah'
+
+function powerline_precmd() {
+    PS1="$(powerline-go -error $? -shell zsh)"
+}
+
+function install_powerline_precmd() {
+  for s in "${precmd_functions[@]}"; do
+    if [ "$s" = "powerline_precmd"  ]; then
+      return
+    fi
+  done
+  precmd_functions+=(powerline_precmd)
+}
+
+if [ "$TERM" != "linux" ]; then
+    if which powerline-go > /dev/null; then
+        install_powerline_precmd
+    fi
+fi
+
+if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi
+if [ -e /home/ubuntu/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ubuntu/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -e /Users/jacobweinstock/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jacobweinstock/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
