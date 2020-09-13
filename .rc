@@ -21,5 +21,12 @@ if [ "$TERM" != "linux" ]; then
 fi
 
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi
-if [ -e /home/ubuntu/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ubuntu/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-if [ -e /Users/jacobweinstock/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jacobweinstock/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+if $(which direnv >/dev/null); then
+  if [ "$SHELL" = "/bin/zsh" ]; then
+    eval "$(direnv hook zsh)"
+  fi
+  if [ "$SHELL" = "/bin/bash" ]; then
+    eval "$(direnv hook bash)"
+  fi
+fi

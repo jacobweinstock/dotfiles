@@ -19,11 +19,9 @@ shell_install: ## Install shell .rc file
 ifeq ($(SHELL_ORIGINAL),/bin/zsh)
 		# install .zshrc
 		ln -snf $(CURDIR)/.rc $(HOME)/.zshrc
-		source $(HOME)/.zshrc
 else
 		# install .bashrc
 		ln -snf $(CURDIR)/.rc $(HOME)/.bashrc
-		source $(HOME)/.bashrc
 endif
 		@echo
 
@@ -82,7 +80,9 @@ gitconfig: ## Install .gitconfig
 
 .PHONY: gitconfig_remove
 gitconfig_remove: ## Remove .gitconfig install
-		# global git config
+		# remove global git config
+		git config --global --unset user.name
+		git config --global --unset user.email
 		rm -rf $(HOME)/.gitconfig
 		@echo
 
