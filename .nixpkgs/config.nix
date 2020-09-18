@@ -12,6 +12,8 @@
         direnv
         gnumake
         htop
+        go-1.15.1
+	tree
       ];
     };
   };
